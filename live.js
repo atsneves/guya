@@ -801,7 +801,7 @@ app.post("/notifylocation",function(req,res,next){
 
 
 //app.db = mongoose.createConnection(app.set("db-uri"));
-var port = (process.env.PORT || 80);
+var port = (process.env.PORT || 8000);
 //app.helpers(helpers.static);
 
 app.listen(port);
@@ -810,5 +810,5 @@ app.listen(port);
 
 
 
-console.log("Executando na porta http://localhost:2400");
+console.log("Executando na porta "+port);
 
