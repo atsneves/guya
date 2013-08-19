@@ -726,8 +726,8 @@ app.post("/notifylocation",function(req,res,next){
 			{
 				var Push = require('node_apns').Push;
 				var push = Push({
-				    cert: require('fs').readFileSync('./apnlivetaxi.pem'), 
-				    key: require('fs').readFileSync('./apnlivetaxi_key_noenc.pem')}, {
+				    cert: require('fs').readFileSync('./.pem'), 
+				    key: require('fs').readFileSync('./.pem')}, {
 				        host: require('node_apns').APNS.development.host
 				    });
 
