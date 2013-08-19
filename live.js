@@ -391,9 +391,8 @@ app.post("/location/createGallery",function(req,res,next){
 			            } else {
 			                
 			                var gallery = new DbGallery();
-			                
+			                gallery.local_id = req.body.id_location;
 			                gallery.url = "https://s3-sa-east-1.amazonaws.com/guya//gallery/"+imageName;
-			                gallery.location_id = req.body.id_location;
 			                gallery.type = req.body.tipo;
 			                
 			                gallery.save(function(erra,saveAdmin){
