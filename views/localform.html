@@ -1,0 +1,55 @@
+<form action="/location/add" method="post" name="form" class="form-horizontal">
+  <fieldset>
+    <legend>Inclus&atilde;o/Edi&ccedil;&atilde;o de novo estabelecimento</legend>
+    <label>Nome do estabelecimento</label>
+    <input type="text" id="nome" name="nome" class="input-xxlarge" placeholder="Nome" size="100">
+    
+    <label>Cep</label>
+    <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" size="100">
+    <br><br>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </fieldset>
+</form>
+ 
+ <!-- JQUERY -->
+ <!-- Placed at the end of the document so the pages load faster -->
+    <!-- JQUERY -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/js/jquery-1.7.1.min.js"><\/script>')</script>
+    <script src="/assets/js/bootstrap-transition.js"></script>
+    <script src="/assets/js/bootstrap-alert.js"></script>
+    <script src="/assets/js/bootstrap-modal.js"></script>
+    <script src="/assets/js/bootstrap-dropdown.js"></script>
+    <script src="/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="/assets/js/bootstrap-tab.js"></script>
+    <script src="/assets/js/bootstrap-tooltip.js"></script>
+    <script src="/assets/js/bootstrap-popover.js"></script>
+    <script src="/assets/js/bootstrap-button.js"></script>
+    <script src="/assets/js/bootstrap-collapse.js"></script>
+    <script src="/assets/js/bootstrap-carousel.js"></script>
+    <script src="/assets/js/bootstrap-typeahead.js"></script>
+	<script type="text/javascript" src="/js/scripts.js"></script>
+    <script type="text/javascript" src="/js/jquery.form.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.maskedinput.min.js"></script>
+        
+
+<script>
+	jQuery(function($){
+	   $("#cep").mask("99999-999");
+	   
+		   $('form').validate({
+	        rules:{
+	            nome:{required: true},
+	            cep:{required: true}
+	        },
+	
+	        messages:{
+	            nome:{required: "Preencha o campo Nome"},
+	            cep:{required: "Preencha o campo CEP"}
+	        }
+	    });
+	   	   	
+	});
+
+</script>

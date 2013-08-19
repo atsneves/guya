@@ -1,0 +1,102 @@
+<form action="/createpatrocinador" method="post" name="form" enctype="multipart/form-data" class="form-horizontal">
+  <fieldset>
+    <legend>Inclus&atilde;o/Edi&ccedil;&atilde;o de Patrocinadores</legend>
+    <%if (typeof param !== 'undefined'){ %>
+    
+    	<input type="hidden" name="identificador" value="<%= param._id %>">
+    	
+    	<label>Nome</label>
+	    <input type="text" id="name" name="name" class="input-xxlarge" placeholder="Nome" size="100" value="<%= param.name %>">
+	    <label>Descrição:</label>
+    	<textarea rows="5" cols="100" name="description" id="description" class="input-xxlarge" id="middle_text"><%= param.description %></textarea>
+        
+	    
+    <% } else { %>
+    <label>Nome</label>
+    <input type="text" id="name" name="name" class="input-xxlarge" placeholder="Nome" size="100">
+    <br><br>
+    <label>Descrição:</label>
+    <textarea rows="5" cols="100" name="description" id="description" class="input-xxlarge" id="description"></textarea>
+    <br><br>
+    <label>Logotipo</label>
+    <input type="file" id="logo" name="logo" class="input-xxlarge" placeholder="Logo" size="100">
+    
+    <% } %>
+    <br><br>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </fieldset>
+</form>
+ 
+ 
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/js/jquery-1.7.1.min.js"><\/script>')</script>
+    <script src="/assets/js/bootstrap-transition.js"></script>
+    <script src="/assets/js/bootstrap-alert.js"></script>
+    <script src="/assets/js/bootstrap-modal.js"></script>
+    <script src="/assets/js/bootstrap-dropdown.js"></script>
+    <script src="/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="/assets/js/bootstrap-tab.js"></script>
+    <script src="/assets/js/bootstrap-tooltip.js"></script>
+    <script src="/assets/js/bootstrap-popover.js"></script>
+    <script src="/assets/js/bootstrap-button.js"></script>
+    <script src="/assets/js/bootstrap-collapse.js"></script>
+    <script src="/assets/js/bootstrap-carousel.js"></script>
+    <script src="/assets/js/bootstrap-typeahead.js"></script>
+	<script type="text/javascript" src="/js/scripts.js"></script>
+    <script type="text/javascript" src="/js/jquery.form.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.maskedinput.min.js"></script>
+        
+	<link href="/datepicker/css/datepicker.css" rel="stylesheet">
+	<script src="/datepicker/js/bootstrap-datepicker.js"></script>
+
+<script>
+	jQuery(function($){
+	   $("#cep").mask("99999-999");
+	   
+	   <%if (typeof param !== 'undefined'){ %>
+		var formattedDate = new Date("<%= param.date %>");
+		var d = formattedDate.getDate();
+		var m =  formattedDate.getMonth();
+		m += 1;  // JavaScript months are 0-11
+		var y = formattedDate.getFullYear();
+		$("#start_date").val(d+"/"+m+"/"+y);
+		
+	<% } %>	
+	   
+	   
+		   $('form').validate({
+	        rules:{
+	            name:{required: true},
+	            data:{required: true}
+	        },
+	
+	        messages:{
+	            name:{required: "Preencha o campo Nome"},
+	            start_date:{required: "Preencha o campo data"}
+	        }
+	    });
+	   
+	   
+	   var nowTemp = new Date();
+var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+	   	   	
+	   	 var checkin = $('#start_date').datepicker({format:"dd/mm/yyyy",
+			  onRender: function(date) {
+			    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+			  }
+			}).on('changeDate', function(ev) {
+			  if (ev.date.valueOf() > checkout.date.valueOf()) {
+			    var newDate = new Date(ev.date)
+			    newDate.setDate(newDate.getDate() + 1);
+			    checkout.setValue(newDate);
+			  }
+			  checkin.hide();
+			  
+			}).data('datepicker');
+			 
+	   
+	   	   	
+	});
+
+</script>

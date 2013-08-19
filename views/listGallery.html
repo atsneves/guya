@@ -1,0 +1,70 @@
+<h2>Listagem</h2>
+
+
+<div id="incluir">
+	<a href="/location/listgallery/form/?p1=<%= idlocal %>"><i class="icon-file"></i>incluir</a>
+</div>
+
+<table id="table" class="table table-bordered tablesorter">
+ <thead>
+ 	<tr>
+ 		<th>Nome</th>
+ 		<th>Ações</th>
+ 	</tr>
+ </thead>
+ <tbody>
+ 	<% for(var i=0; i< qryGallery.length; i++) { %>
+       <tr>
+ 		<td><a href="<%= qryGallery[i].url %>" target="_blank">Abrir</a></td>
+ 		
+ 		<td>
+ 			<a href="#" title="<%= qryGallery[i].url %>" id="<%= qryGallery[i]._id %>" class="trash"><i class="icon-trash"></i></a>
+ 		</td>
+ 	</tr>
+ 	 
+    <% } %>
+ </tbody>
+<div id="pager" class="pager" style="position:static !important;">
+	<form>
+		<img src="/js/images_css/blue/first.png" class="first"/>
+		<img src="/js/images_css/blue/prev.png" class="prev"/>
+		<input type="text" disabled="true" class="pagedisplay" style="height: 15px;"/>
+		<img src="/js/images_css/blue/next.png" class="next"/>
+		<img src="/js/images_css/blue/last.png" class="last"/>
+		<select class="pagesize">
+			<option selected="selected" style="height: 15px;" value="10">10</option>
+			<option value="20">20</option>
+			<option value="30">30</option>
+			<option  value="40">40</option>
+		</select>
+	</form>
+</div>
+</table>
+
+ <!-- JQUERY -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/js/jquery-1.7.1.min.js"><\/script>')</script>
+        <script type="text/javascript" src="/js/__jquery.tablesorter.js"></script>
+        <script type="text/javascript" src="/js/jquery.tablesorter.pager.js"></script>
+        <link rel="stylesheet" type="text/css" href="/js/images_css/blue/style.css">
+ 
+<script>
+	$(document).ready(function() {
+		$("table")
+		.tablesorter({widthFixed: true, widgets: ['zebra']})
+		.tablesorterPager({container: $("#pager")});
+		
+		$(".trash").click(function(){
+			var usr = $(this).attr("title");
+			var pai = $(this).parent().parent();
+			if(confirm("Tem certeza que deseja remover o usuário "+usr+"?"))
+			{
+				$.post("/removeGallery",{id:$(this).attr("id")},function(data){
+					pai.remove();
+				});
+			}
+		});
+		
+	});
+
+</script>

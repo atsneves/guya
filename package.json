@@ -1,0 +1,32 @@
+{
+	"name"          : "LiveTaxiServer",
+	"description"   : "Supporting Server for Live Taxi",
+	"author"        : "Foca Consulting",
+	"main"          : "./application.js",
+	"version"       : "4.0.0",	
+	"scripts": {
+		"test": "echo \"Error: no test specified! Configure in package.json\" && exit 1"
+	},
+  "dependencies"  : { 
+	  "express" : ">0.0.0",
+      "mongodb"   : ">1.2.14",
+	  "mongoose"  : ">3.6.5",
+	  "socket.io" : ">0.0.0",
+	  "ejs" : ">0.4.3",
+	  "express-partials" :">0.1.0",
+	  "google-places-textsearch":">0.0.0",
+	  "google-places":">0.0.0",
+	  "needle":">0.0.0",
+	  "aws-sdk":">0.0.0",
+	  "node_apns":">0.0.0"
+	},
+  "repository": "",
+  "keywords": [
+    "Node.js",
+    "Eclipse",
+    "Nodeclipse"
+  ],
+  "author": "",
+  "license": "BSD",
+  "readmeFilename": "README.md"
+}

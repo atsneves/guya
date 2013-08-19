@@ -1,0 +1,216 @@
+<form action="/location/create" method="post" name="form" enctype="multipart/form-data" class="form-horizontal">
+  <fieldset>
+    <legend>Inclus&atilde;o/Edi&ccedil;&atilde;o de locais</legend>
+    <%if (typeof param !== 'undefined'){ %>
+    
+    <input type="hidden" name="identificador" value="<%= param._id %>">
+    	
+    <label>Nome</label>
+    <input type="text" id="nome" name="nome" class="input-xxlarge" placeholder="Nome" size="100" value="<%= param.name %>">
+    <br><br>
+    <label>Preço</label>
+    <input type="text" id="price" name="price" class="input-xxsmall" placeholder="Preço" value="<%= param.price %>">
+    <br><br>
+    <label>Descrição</label>
+    <input type="text" id="descricao" name="descricao" class="input-xxlarge" placeholder="Descrição" size="100" value="<%= param.description %>">
+    <br><br>
+    <label>Telefone</label>
+    <input type="text" id="phone" name="phone" class="input-xxsmall datepicker" placeholder="(xx)xxxx-xxxx" value="<%= param.phone %>">
+    <br><br>
+    <label>Endereço completo</label>
+    <input type="text" id="endereco" name="endereco" class="input-xxlarge" placeholder="Endereço" size="100" value="<%= param.full_address %>">
+    <br><br>
+    <label>Latitude</label>
+    <input type="text" id="latitude" name="latitude" class="input-xxsmall" placeholder="-24.00000" readonly  value="<%= param.address_location[1] %>">
+    <br><br>
+    <label>Longitude</label>
+    <input type="text" id="longitude" name="longitude" class="input-xxsmall" placeholder="-43.00000" readonly value="<%= param.address_location[0] %>">
+    <br><br>
+    <label>Data</label>
+    <input type="text" id="dia" name="dia" class="input-xxlarge" placeholder="Seg / Ter / Qua / Qui / Sex / Sab / Dom" size="100" value="<%= param.date_event %>">
+    <br><br>
+    <label>Horário</label>
+    <input type="text" id="horario" name="horario" class="input-xxsmall" placeholder="10:00 até 22:00" size="100" value="<%= param.hour_event %>">
+    <br><br>
+    <label>Prioridade</label>
+    <input type="text" id="prioridade" name="prioridade" class="input-xxsmall" placeholder="1" size="100" value="<%= param.order %>">
+    <br><br>
+    <label>Texto notificação;</label>
+    <input type="text" id="notify_text" name="notify_text" class="input-xxlarge" placeholder="Texo da notificação" size="100" value="<%= param.notify_text %>">
+    <br><br>
+    <label>Tipo</label>
+    <select id="type" name="type">
+    	<option value="BAR"  <%if (param.type !== 'BAR'){ %> selected<% }%> >Bar</option>
+    	<option value="CLUBE" <%if (param.type !== 'CLUBE'){ %> selected<% }%>>Clube</option>
+    	<option value="FESTAS" <%if (param.type !== 'FESTAS'){ %> selected<% }%>>Festas</option>
+    	<option value="HOT" <%if (param.type !== 'HOT'){ %> selected<% }%>>Hot</option>
+    	<option value="ELAS" <%if (param.type !== 'ELAS'){ %> selected<% }%>>Elas</option>
+    	<option value="ELES" <%if (param.type !== 'ELES'){ %> selected<% }%>>Eles</option>
+    	<option value="POINTS" <%if (param.type !== 'POINTS'){ %> selected<% }%>>Points</option>
+    </select>
+	    
+    <% } else { %>
+    <label>Nome</label>
+    <input type="text" id="nome" name="nome" class="input-xxlarge" placeholder="Nome" size="100">
+    <br><br>
+    <label>Logotipo</label>
+    <input type="file" id="logo" name="logo" class="input-xxlarge" placeholder="Logo" size="100">
+    <br><br>
+    <label>Preço</label>
+    <input type="text" id="price" name="price" class="input-xxsmall" placeholder="Preço">
+    <br><br>
+    <label>Descrição</label>
+    <input type="text" id="descricao" name="descricao" class="input-xxlarge" placeholder="Descrição" size="100">
+    <br><br>
+    <label>Telefone:</label>
+    <input type="text" id="phone" name="phone" class="input-xxsmall datepicker" placeholder="Telefone">
+    <br><br>
+    <label>Endereço completo</label>
+    <input type="text" id="endereco" name="endereco" class="input-xxlarge" placeholder="Endereço" size="100">
+    <br><br>
+    <label>Latitude</label>
+    <input type="text" id="latitude" name="latitude" class="input-xxsmall" placeholder="-24.00000" readonly>
+    <br><br>
+    <label>Longitude</label>
+    <input type="text" id="longitude" name="longitude" class="input-xxsmall" placeholder="-43.00000" readonly>
+    <br><br>
+    <label>Data</label>
+    <input type="text" id="dia" name="dia" class="input-xxlarge" placeholder="Seg / Ter / Qua / Qui / Sex / Sab / Dom" size="100">
+    <br><br>
+    <label>Horário</label>
+    <input type="text" id="horario" name="horario" class="input-xxsmall" placeholder="10:00 até 22:00" size="100">
+    <br><br>
+    <label>Prioridade</label>
+    <input type="text" id="prioridade" name="prioridade" class="input-xxsmall" placeholder="1" size="100">
+    <br><br>
+    <label>Texto notificação;</label>
+    <input type="text" id="notify_text" name="notify_text" class="input-xxlarge" placeholder="Texo da nbotificação" size="100">
+    <br><br>
+    <label>Tipo</label>
+    <select id="type" name="type">
+    	<option value="BAR">Bar</option>
+    	<option value="CLUBE">Clube</option>
+    	<option value="FESTAS">Festas</option>
+    	<option value="HOT">Hot</option>
+    	<option value="ELAS">Elas</option>
+    	<option value="ELES" >Eles</option>
+    	<option value="POINTS">Points</option>
+    </select>
+    <% } %>
+    <br><br>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </fieldset>
+</form>
+ 
+ <!-- JQUERY -->
+ <!-- Placed at the end of the document so the pages load faster -->
+    <!-- JQUERY -->
+    
+    
+    
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/js/jquery-1.7.1.min.js"><\/script>')</script>
+    <script src="/assets/js/bootstrap-transition.js"></script>
+    <script src="/assets/js/bootstrap-alert.js"></script>
+    <script src="/assets/js/bootstrap-modal.js"></script>
+    <script src="/assets/js/bootstrap-dropdown.js"></script>
+    <script src="/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="/assets/js/bootstrap-tab.js"></script>
+    <script src="/assets/js/bootstrap-tooltip.js"></script>
+    <script src="/assets/js/bootstrap-popover.js"></script>
+    <script src="/assets/js/bootstrap-button.js"></script>
+    <script src="/assets/js/bootstrap-collapse.js"></script>
+    <script src="/assets/js/bootstrap-carousel.js"></script>
+    <script src="/assets/js/bootstrap-typeahead.js"></script>
+	<script type="text/javascript" src="/js/scripts.js"></script>
+    <script type="text/javascript" src="/js/jquery.form.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.maskedinput.min.js"></script>
+        
+	<link href="/datepicker/css/datepicker.css" rel="stylesheet">
+	<script src="/datepicker/js/bootstrap-datepicker.js"></script>
+<script>
+	jQuery(function($){
+	
+	
+	<%if (typeof param !== 'undefined'){ %>
+		var formattedDate = new Date("<%= param.date_start %>");
+		var d = formattedDate.getDate();
+		var m =  formattedDate.getMonth();
+		m += 1;  // JavaScript months are 0-11
+		var y = formattedDate.getFullYear();
+		$("#start_date").val(d+"/"+m+"/"+y);
+		
+		
+		var formattedDateEnd = new Date("<%= param.date_end %>");
+		var dE = formattedDateEnd.getDate();
+		var mE =  formattedDateEnd.getMonth();
+		mE += 1;  // JavaScript months are 0-11
+		var yE = formattedDateEnd.getFullYear();
+		$("#end_date").val(dE+"/"+mE+"/"+yE);
+		
+	<% } %>	
+		
+	   $("#endereco").change(function(){
+	   	$.getJSON('http://maps.google.com/maps/api/geocode/json?address='+$(this).val()+'&sensor=false', function(data) {
+		  console.log(data.results[0]);
+		  
+		 $("#latitude").val(data.results[0].geometry.location.lat);
+		 $("#longitude").val(data.results[0].geometry.location.lng); 
+		});	
+	   });
+	   
+		$('form').validate({
+	        rules:{
+	            nome:{required: true},
+	            logo:{required: true},
+	            quantidade:{required: true},
+	            descricao:{required: true},
+	            endereco:{required: true},
+	            latitude:{required: true},
+	            longitude:{required: true},
+	            dia:{required: true},
+	            horario:{required: true},
+	            prioridade:{required: true}
+	        },
+	
+	        messages:{
+	            nome:{required:"O campo Nome é obrigatório"},
+	            logo:{required: "O campo Logo é obrigatório"},
+	            quantidade:{required: "O campo Quantidade é obrigatório"},
+	            descricao:{required: "O campo Descrição é obrigatório"},
+	            endereco:{required: "O campo Endereço é obrigatório"},
+	            latitude:{required: "O campo Latitude é obrigatório"},
+	            longitude:{required: "O campo Longitude é obrigatório"},
+	            dia:{required: "O campo Dia da Semana é obrigatório"},
+	            horario:{required: "O campo Horário é obrigatório"},
+	            prioridade:{required: "O campo Prioridade é obrigatório"}
+	        }
+	    });
+	   	   	var nowTemp = new Date();
+var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+	   	   	
+	   	 var checkin = $('#start_date').datepicker({format:"dd/mm/yyyy",
+		  onRender: function(date) {
+		    return date.valueOf() < now.valueOf() ? 'disabled' : '';
+		  }
+		}).on('changeDate', function(ev) {
+		  if (ev.date.valueOf() > checkout.date.valueOf()) {
+		    var newDate = new Date(ev.date)
+		    newDate.setDate(newDate.getDate() + 1);
+		    checkout.setValue(newDate);
+		  }
+		  checkin.hide();
+		  $('#end_date')[0].focus();
+		}).data('datepicker');
+		var checkout = $('#end_date').datepicker({format:"dd/mm/yyyy",
+		  onRender: function(date) {
+		    return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
+		  }
+		}).on('changeDate', function(ev) {
+		  checkout.hide();
+		}).data('datepicker');   	
+	   	   	
+	});
+
+</script>

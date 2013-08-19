@@ -1,0 +1,84 @@
+<h2>Listagem de locais</h2>
+
+
+<table id="table" class="table table-bordered tablesorter">
+ <thead>
+ 	<tr>
+ 		<th>Nome</th>
+ 		<th>Localização</th>
+ 		<th>Ações</th>
+ 	</tr>
+ </thead>
+ <tbody>
+ 	<% for(var i=0; i<qryLocais.length; i++) { %>
+       <tr>
+ 		<td><%= qryLocais[i].name %></td>
+ 		<td><%= qryLocais[i].full_address %></td>
+ 		<td>
+ 			<a href="/location/listgallery/?p1=<%= qryLocais[i]._id %>" title="Incluir Galeria"><i class="icon-film"></i></a>
+ 			|
+ 			<a href="/location/form/?p1=<%= qryLocais[i]._id %>" title="Editar"><i class="icon-pencil"></i></a> 
+ 			| 
+ 			<a href="#" title="<%= qryLocais[i].name %>" id="<%= qryLocais[i]._id %>" class="trash"><i class="icon-trash"></i></a>
+ 			|
+ 			<a href="#" title="<%= qryLocais[i].name %>" id="<%= qryLocais[i]._id %>" class="notify"><i class="icon-inbox"></i></a>
+ 		</td>
+ 	</tr>
+ 	 
+    <% } %>
+ </tbody>
+<div id="pager" class="pager" style="position:static !important;">
+	<form>
+		<img src="/js/images_css/blue/first.png" class="first"/>
+		<img src="/js/images_css/blue/prev.png" class="prev"/>
+		<input type="text" disabled="true" class="pagedisplay" style="height: 15px;"/>
+		<img src="/js/images_css/blue/next.png" class="next"/>
+		<img src="/js/images_css/blue/last.png" class="last"/>
+		<select class="pagesize">
+			<option selected="selected" style="height: 15px;" value="10">10</option>
+			<option value="20">20</option>
+			<option value="30">30</option>
+			<option  value="40">40</option>
+		</select>
+	</form>
+</div>
+</table>
+
+ <!-- JQUERY -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/js/jquery-1.7.1.min.js"><\/script>')</script>
+        <script type="text/javascript" src="/js/__jquery.tablesorter.js"></script>
+        <script type="text/javascript" src="/js/jquery.tablesorter.pager.js"></script>
+        <link rel="stylesheet" type="text/css" href="/js/images_css/blue/style.css">
+ 
+<script>
+	$(document).ready(function() {
+		$("table")
+		.tablesorter({widthFixed: true, widgets: ['zebra']})
+		.tablesorterPager({container: $("#pager")});
+		
+		$(".trash").click(function(){
+			var usr = $(this).attr("title");
+			var pai = $(this).parent().parent();
+			if(confirm("Tem certeza que deseja remover o usuário "+usr+"?"))
+			{
+				$.post("/removeLocais",{id:$(this).attr("id")},function(data){
+					pai.remove();
+				});
+			}
+		});
+		
+		$(".notify").click(function(){
+			var usr = $(this).attr("title");
+			if(confirm("Tem certeza que deseja enviar a notificação "+usr+"?"))
+			{
+				$.post("/notifylocation",{id:$(this).attr("id")},function(data){
+					alert("Notificação enviada com sucesso!");
+				});
+			}
+		});
+		
+		
+	});
+
+</script>
