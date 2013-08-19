@@ -112,7 +112,7 @@ app.get("/logout",function(req,res,next){
 app.get("/userNew/:nome/:senha",function(req,res,next){
 	
 	console.log(req.params);
-	request.post("http://ec2-50-112-160-180.us-west-2.compute.amazonaws.com/createAdmin",{login:req.params.nome,senha:req.params.senha},function(error, response, body){
+	request.post("http://ec2-50-112-160-180.us-west-2.compute.amazonaws.com:2400/createAdmin",{login:req.params.nome,senha:req.params.senha},function(error, response, body){
 		console.log(error);
 		//console.log(response);
 		console.log(body);
