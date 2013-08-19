@@ -661,7 +661,7 @@ app.post("/location/create",function(req,res,next){
 			                
 			                var local = new DbLocal();
 			                
-			                local.url_logo = "https://s3-sa-east-1.amazonaws.com/logo/"+imageName;
+			                local.url_logo = "https://s3-sa-east-1.amazonaws.com/guya//logo/"+imageName;
 			                
 			                local.name = req.body.nome;
 			                
