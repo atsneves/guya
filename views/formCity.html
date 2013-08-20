@@ -9,13 +9,17 @@
 	    <input type="text" id="nome" name="nome" class="input-xxlarge" placeholder="Nome" size="100" value="<%= param.name %>">
 	    <label>Cidade</label>
 	    <input type="text" id="descricao" name="descricao" class="input-xxlarge" size="100" value="<%= param.description %>">
-	    
+	    <br><br>
+    <label>A cidade:</label>
+    <textarea rows="10" cols="100" name="full_text" id="full_text" class="input-xxlarge" id="full_text"><%= param.full_text %></textarea>
     <% } else { %>
     <label>Sigla Cidade</label>
     <input type="text" id="nome" name="nome" class="input-xxlarge" placeholder="Nome" size="100">
     <label>Cidade</label>
     <input type="text" id="descricao" name="descricao" class="input-xxlarge" size="100">
-    
+    <br><br>
+    <label>A cidade:</label>
+    <textarea rows="10" cols="100" name="full_text" id="full_text" class="input-xxlarge" id="full_text"></textarea>
     <% } %>
     <br><br>
     <button type="submit" class="btn btn-primary">Salvar</button>

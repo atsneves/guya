@@ -179,6 +179,7 @@ app.post("/createCity",function(req,res,next){
 		DbCity.findOne({_id:req.body.identificador},function(err,ret){
 			ret.name = req.body.nome;
 			ret.description = req.body.descricao;
+			ret.full_text = req.body.full_text;
 			ret.save(function(err,saveCity){
 				console.log(err);
 				console.log(saveCity);
@@ -202,7 +203,7 @@ app.post("/createCity",function(req,res,next){
 		var city = new DbCity();
 		city.name = req.body.nome;
 		city.description = req.body.descricao;
-		
+		city.full_text = req.body.full_text;
 		city.save(function(err,saveCity){
 			console.log(err);
 			if(!err)

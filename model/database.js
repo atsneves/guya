@@ -25,7 +25,8 @@ var AdminSchema = new Schema({
 
 var CitySchema = new Schema({
 	name: {type:String,required:true,unique: true},
-	description: {type:String,required:true}
+	description: {type:String,required:true},
+	full_text: {type:String}
 });
 
 var LocaisSchema = new Schema({
