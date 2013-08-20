@@ -31,7 +31,7 @@ exports.findAll = function(req,res,next){
         	console.log(listAllGallery);
         	if(req.session.admin)
         	{
-        		res.render('listGallery',{layout: 'home',idlocal:LocalId,qryGallery:listAllGallery,title:"Guya",username:req.session.admin.usuario,code:err});
+        		res.render('listGallery',{layout: 'home',idlocal:LocalId,qryGallery:listAllGallery,title:"Guiya",username:req.session.admin.usuario,code:err});
         		
         	}
         	else

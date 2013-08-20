@@ -35,7 +35,7 @@ exports.findAll = function(req,res,next){
         {
         	if(req.session.admin)
         	{
-        		res.render('listPatrocinador',{layout: 'home',qryPatrocinador:listAllPatrocinador,title:"Guya",username:req.session.admin.usuario,code:err});
+        		res.render('listPatrocinador',{layout: 'home',qryPatrocinador:listAllPatrocinador,title:"Guiya",username:req.session.admin.usuario,code:err});
         		
         	}
         	else

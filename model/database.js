@@ -9,7 +9,7 @@ var TABLE_ADMIN = "Administrator";
 var TABLE_LOCAIS = "Locais";
 var TABLE_GALLE = "Gallery";
 var TABLE_PATROCINADOR = "Patrocinador";
-
+var TABLE_CITY = "City";
 
 
 var enumType = ["BAR", "CLUBE","FESTAS","HOT","ELAS","ELES","POINTS"];
@@ -20,6 +20,12 @@ var enumTypeGallery = ["VIDEO","IMAGE"];
 var AdminSchema = new Schema({
 	usuario: {type:String,required:true,unique: true},
 	senha: {type:String,required:true}
+});
+
+
+var CitySchema = new Schema({
+	name: {type:String,required:true,unique: true},
+	description: {type:String,required:true}
 });
 
 var LocaisSchema = new Schema({
@@ -34,14 +40,16 @@ var LocaisSchema = new Schema({
 	hour_event:{type:String},
 	notify_text:{type:String},
 	order:{type:Number,default:0},
-	type:{type:String,required: true, enum:enumType}
+	type:{type:String,required: true, enum:enumType},
+	city:{type:String,required: true}
 });
 
 
 var PatrocinadorSchema = new Schema({
 	name:{type:String, required:true},
 	description:{type:String, required:true},
-	url_image:{type:String,required:true}
+	url_image:{type:String,required:true},
+	city:{type:String,required: true}
 });
 
 var GalerySchema = new Schema({
@@ -49,6 +57,10 @@ var GalerySchema = new Schema({
 	type:{type:String,required: true, enum:enumTypeGallery},
 	local_id:{type:String,required:true}
 });
+
+mongoose.model(TABLE_CITY, CitySchema);
+exports.City = mongoose.model(TABLE_CITY);
+
 
 mongoose.model(TABLE_ADMIN, AdminSchema);
 exports.Admin = mongoose.model(TABLE_ADMIN);

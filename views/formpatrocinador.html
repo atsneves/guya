@@ -15,6 +15,14 @@
     <label>Nome</label>
     <input type="text" id="name" name="name" class="input-xxlarge" placeholder="Nome" size="100">
     <br><br>
+    <label>Cidade</label>
+    <select id="city" name="city">
+    	
+    <% for(var i=0; i<cidades.length; i++) { %>
+    	<option value="<%= cidades[i]._id %>"><%= cidades[i].description %></option>
+    <% } %>
+    </select>
+    <br><br>
     <label>Descrição:</label>
     <textarea rows="5" cols="100" name="description" id="description" class="input-xxlarge" id="description"></textarea>
     <br><br>
@@ -68,12 +76,14 @@
 		   $('form').validate({
 	        rules:{
 	            name:{required: true},
-	            data:{required: true}
+	            data:{required: true},
+	            city:{required:true}
 	        },
 	
 	        messages:{
 	            name:{required: "Preencha o campo Nome"},
-	            start_date:{required: "Preencha o campo data"}
+	            start_date:{required: "Preencha o campo data"},
+	            city:{required:"O campo Cidade é obrigatório, cadastre uma cidade antes de um patrocinador."}
 	        }
 	    });
 	   

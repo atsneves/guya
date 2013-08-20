@@ -11,6 +11,7 @@ var DbAdmin = database.Admin;
 var DbPatro = database.Patro;
 var DbLocal = database.Local;
 var DbGallery = database.Gallery;
+var DbCity = database.City;
 
 
 //LoadModules
@@ -18,6 +19,8 @@ var adminModule = require("./model/administrator.js");
 var localModule = require("./model/local.js");
 var galleryModule = require("./model/gallery.js");
 var patrocinadorModule = require("./model/patrocinador.js");
+var cityModule = require("./model/city.js");
+
 
 var mongoose = require("mongoose");
 
@@ -49,7 +52,7 @@ app.get("/",function(req,res,next){
 	}
 	else
 	{
-		res.render('index',{layout: 'login',title:"Guya",erro:req.session.erro,code:err});
+		res.render('index',{layout: 'login',title:"Guiya",erro:req.session.erro,code:err});
 		req.session.destroy();
 		console.log(err);
 	}
@@ -86,7 +89,7 @@ app.get("/home",function(req,res,next){
 	{
 		console.log(req.session.admin);
 		err = "";
-		res.render('boasvindas',{layout: 'home',title:"Guya",username:req.session.admin.usuario,code:req.session.erro});
+		res.render('boasvindas',{layout: 'home',title:"Guiya",username:req.session.admin.usuario,code:req.session.erro});
 		
 		req.session.erro = "";
 		
@@ -168,6 +171,56 @@ app.post("/createAdmin",function(req,res,next){
 	}
 });
 
+
+app.post("/createCity",function(req,res,next){
+	
+	if(req.body.identificador)
+	{
+		DbCity.findOne({_id:req.body.identificador},function(err,ret){
+			ret.name = req.body.nome;
+			ret.description = req.body.descricao;
+			ret.save(function(err,saveCity){
+				console.log(err);
+				console.log(saveCity);
+				if(!err)
+				{
+					req.session.erro = {code:666,message:"Usuário alterado com sucesso!"};
+					res.redirect("/home");
+				}
+				else
+				{
+					req.session.erro = {code:666,message:err.message};
+					res.redirect("/home");
+				}
+				
+			});
+		});
+		
+	}
+	else
+	{
+		var city = new DbCity();
+		city.name = req.body.nome;
+		city.description = req.body.descricao;
+		
+		city.save(function(err,saveCity){
+			console.log(err);
+			if(!err)
+			{
+				req.session.erro = {code:666,message:"Cidade incluída com sucesso!"};
+				res.redirect("/home");
+			}
+			else
+			{
+				req.session.erro = {code:666,message:err.message};
+				res.redirect("/home");
+			}
+		});
+	}
+});
+
+
+
 app.get("/lastpatrocinador",patrocinadorModule.findLastBySystem);
 
 app.post("/createpatrocinador",function(req,res,next){
@@ -234,6 +287,7 @@ app.post("/createpatrocinador",function(req,res,next){
 			                
 			                var ret = new DbPatro();
 			        		ret.name = req.body.name;
+			        		ret.city = req.body.cidade;
 			        		ret.description = req.body.description;
 			        		ret.url_image =  "https://s3-sa-east-1.amazonaws.com/guya//logo/"+imageName;
 			        		ret.save(function(err,savepatrocinador){
@@ -291,12 +345,37 @@ app.get("/admin/form",function(req,res,next){
 	if(req.query.p1)
 	{
 		DbAdmin.findOne({_id:req.query.p1},function(err,ret){
-			res.render('formAdmin',{layout: 'home',param:ret,title:"Guya",username:req.session.admin.usuario,code:err});
+			res.render('formAdmin',{layout: 'home',param:ret,title:"Guiya",username:req.session.admin.usuario,code:err});
 		});
 	}
 	else
 	{
-		res.render('formAdmin',{layout: 'home',title:"Guya",username:req.session.admin.usuario,code:err});
+		res.render('formAdmin',{layout: 'home',title:"Guiya",username:req.session.admin.usuario,code:err});
+	}
+	
+	
+});
+
+
+app.get("/city/form",function(req,res,next){
+	
+	if(!req.session.admin)
+	{	
+		req.session.erro = {code:400,message:"Sem acesso"};
+		res.redirect("/");
+		return;
+	}
+	console.log(req.query);
+	
+	if(req.query.p1)
+	{
+		DbCity.findOne({_id:req.query.p1},function(err,ret){
+			res.render('formCity',{layout: 'home',param:ret,title:"Guiya",username:req.session.admin.usuario,code:err});
+		});
+	}
+	else
+	{
+		res.render('formCity',{layout: 'home',title:"Guiya",username:req.session.admin.usuario,code:err});
 	}
 	
 	
@@ -316,12 +395,15 @@ app.get("/patrocinador/form",function(req,res,next){
 	if(req.query.p1)
 	{
 		DbPatro.findOne({_id:req.query.p1},function(err,ret){
-			res.render('formpatrocinador',{layout: 'home',param:ret,title:"Guya",username:req.session.admin.usuario,code:err});
+			res.render('formpatrocinador',{layout: 'home',param:ret,title:"Guiya",username:req.session.admin.usuario,code:err});
 		});
 	}
 	else
 	{
-		res.render('formpatrocinador',{layout: 'home',title:"Guya",username:req.session.admin.usuario,code:err});
+		DbCity.find().sort({name:1}).execFind(function (err, listAllCity) {
+			res.render('formpatrocinador',{layout: 'home',cidades:listAllCity,title:"Guiya",username:req.session.admin.usuario,code:err});
+		});
+		
 	}
 	
 	
@@ -342,7 +424,7 @@ app.get("/location/listgallery/form",function(req,res,next){
 	
 	if(req.query.p1)
 	{
-		res.render('formGallery',{layout: 'home',idlocal:req.query.p1,title:"Guya",username:req.session.admin.usuario,code:err});
+		res.render('formGallery',{layout: 'home',idlocal:req.query.p1,title:"Guiya",username:req.session.admin.usuario,code:err});
 	}
 	else
 	{
@@ -452,6 +534,13 @@ app.get("/location/list",localModule.findAll);
 
 app.get("/location/form",function(req,res,next){
 	
+	if(!req.session.admin)
+	{	
+		req.session.erro = {code:400,message:"Sem acesso"};
+		res.redirect("/");
+		return;
+	}
+	
 	console.log(req.query);
 	var retJson =req.query.json;
 	
@@ -473,15 +562,18 @@ app.get("/location/form",function(req,res,next){
 					res.redirect("/");
 					return;
 				}
-				
-				res.render('formlocation',{layout: 'home',param:ret,title:"Guya",username:req.session.admin.usuario,code:err});
+				res.render('formlocation',{layout: 'home',param:ret,title:"Guiya",username:req.session.admin.usuario,code:err});
 			}
 			
 		});
 	}
 	else
 	{
-		res.render('formlocation',{layout: 'home',title:"Guya",username:req.session.admin.usuario,code:err});
+		DbCity.find().sort({name:1}).execFind(function (err, listAllCity) {
+			res.render('formlocation',{layout: 'home',cidades:listAllCity,title:"Guiya",username:req.session.admin.usuario,code:err});
+		});
+		
+		
 	}
 	
 });
@@ -490,6 +582,7 @@ app.get("/admin/list",adminModule.findAll);
 
 app.get("/patrocinador/list",patrocinadorModule.findAll);
 
+app.get("/city/list",cityModule.findAll);
 
 app.post("/removeGallery",function(req,res,next){
 	
@@ -554,6 +647,27 @@ app.post("/removeAdmin",function(req,res,next){
 	}
 });
 
+
+app.post("/removeCity",function(req,res,next){
+	
+	if(req.body.id)
+	{
+		DbCity.remove( {"_id": req.body.id},function(err,ret){
+			if(!err)
+			{
+				req.session.erro = {code:001,message:"Cidade removida com sucesso!"};
+			}
+			else
+			{
+				req.session.erro = err;
+			}
+			res.end();
+		});
+		
+		
+	}
+});
+
 app.post("/removePatrocinador",function(req,res,next){
 	
 	if(req.body.id)
@@ -590,7 +704,7 @@ app.post("/location/create",function(req,res,next){
 	{
 		DbLocal.findOne({_id:req.body.identificador},function(err,local){
 			local.name = req.body.nome;
-            
+			local.city = req.body.cidade;
             local.price = req.body.price;
             
             local.description = req.body.descricao;
@@ -668,7 +782,7 @@ app.post("/location/create",function(req,res,next){
 			                local.price = req.body.price;
 			                
 			                local.description = req.body.descricao;
-			                
+			                local.city = req.body.cidade;
 			                local.phone = req.body.phone;
 			                
 			                local.address_location = [req.body.longitude,req.body.latitude];
@@ -791,6 +905,9 @@ app.post("/notifylocation",function(req,res,next){
 	}
 });
 
+//CONSULTAS JSON
+
+app.get("/locationbylatlng",localModule.findAllByDistance);
 
 
 //app.db = mongoose.createConnection(app.set("db-uri"));

@@ -62,7 +62,7 @@
 			var pai = $(this).parent().parent();
 			if(confirm("Tem certeza que deseja remover o usuário "+usr+"?"))
 			{
-				$.post("/removeLocais",{id:$(this).attr("id")},function(data){
+				$.post("/removelocation",{id:$(this).attr("id")},function(data){
 					pai.remove();
 				});
 			}

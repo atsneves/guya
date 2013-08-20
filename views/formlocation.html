@@ -53,6 +53,14 @@
     <label>Nome</label>
     <input type="text" id="nome" name="nome" class="input-xxlarge" placeholder="Nome" size="100">
     <br><br>
+    <label>Cidade</label>
+    <select id="city" name="city">
+    	
+    <% for(var i=0; i<cidades.length; i++) { %>
+    	<option value="<%= cidades[i]._id %>"><%= cidades[i].description %></option>
+    <% } %>
+    </select>
+    <br><br>
     <label>Logotipo</label>
     <input type="file" id="logo" name="logo" class="input-xxlarge" placeholder="Logo" size="100">
     <br><br>
@@ -171,7 +179,8 @@
 	            longitude:{required: true},
 	            dia:{required: true},
 	            horario:{required: true},
-	            prioridade:{required: true}
+	            prioridade:{required: true},
+	            city:{required:true}
 	        },
 	
 	        messages:{
@@ -184,7 +193,8 @@
 	            longitude:{required: "O campo Longitude é obrigatório"},
 	            dia:{required: "O campo Dia da Semana é obrigatório"},
 	            horario:{required: "O campo Horário é obrigatório"},
-	            prioridade:{required: "O campo Prioridade é obrigatório"}
+	            prioridade:{required: "O campo Prioridade é obrigatório"},
+	            city:{required:"O campo Cidade é obrigatório, cadastre uma cidade antes de um local."}
 	        }
 	    });
 	   	   	var nowTemp = new Date();

@@ -20,7 +20,7 @@ exports.findAll = function(req,res,next){
         {
         	if(req.session.admin)
         	{
-        		res.render('listAdmin',{layout: 'home',qryAdmin:listAllAdmin,title:"Guya",username:req.session.admin.usuario,code:err});
+        		res.render('listAdmin',{layout: 'home',qryAdmin:listAllAdmin,title:"Guiya",username:req.session.admin.usuario,code:err});
         		
         	}
         	else
